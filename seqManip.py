@@ -87,8 +87,8 @@ for codons in z:
 
 ##printing the list of proteins
 
-#Removing brackets and commas from the list of proteins
-proteins=''.join(y)
+#Removing brackets and commas from the list of amino acids
+aalist=''.join(y)
 
-#printing out the proteins
-print("The protein sequence generated from this DNA sequence is: ", proteins)
+#printing out the aminoacids
+print("The amino acids sequence generated from this DNA sequence is: ", aalist)
