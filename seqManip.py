@@ -76,7 +76,7 @@ AAs= {'TTT': 'F', 'TTC':'F', 'TTA':'L', 'TTG':'L',
       'GAT':'D', 'GAC':'D', 'GAA':'E', 'GAG':'E',
       'GGT':'G', 'GGC':'G', 'GGA':'G', 'GGG':'G'}
 
-#Creating a blank list for proteins
+#Creating a blank list for amino acids
 
 y=[]
 
@@ -85,7 +85,7 @@ for codons in z:
 #appending the empty list above with the appropriate protein for that amino acid
     y.append(AAs.get(codons))
 
-##printing the list of proteins
+##printing the list of aas
 
 #Removing brackets and commas from the list of amino acids
 aalist=''.join(y)
