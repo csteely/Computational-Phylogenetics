@@ -85,7 +85,10 @@ for codons in z:
 #appending the empty list above with the appropriate protein for that amino acid
     y.append(AAs.get(codons))
 
-#printing the list of proteins
-    
-print("The protein sequence generated from this DNA sequence is: ", y)
+##printing the list of proteins
 
+#Removing brackets and commas from the list of proteins
+proteins=''.join(y)
+
+#printing out the proteins
+print("The protein sequence generated from this DNA sequence is: ", proteins)
