@@ -1,13 +1,13 @@
-from __future__ import division
+
 import matplotlib.pyplot as plt
-import numpy
+
 
 ## 1)Essentially a function for factorials, allowing for the user to set
 ##a minimum and maximum value
 
 def semifactorial(maximum,minimum):
 
-    import numpy
+
 #creating a placeholder for the values
     ans=1
     
