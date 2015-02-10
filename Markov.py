@@ -80,13 +80,16 @@ print(random)
 # Write your Markov chain simulator below. Record the states of your chain in 
 # a list. Draw a random state to initiate the chain.
 
-def MarkoPolo(trials):
+
+def MarkovPolo(trials):
     
 #Get it? Like MarcoPolo, but more random.
     
     import numpy
     valueList=[]
     random=numpy.random.uniform(0,1)
+##Decided that the first value should have a 50/50 chance of being A or B. 
+
     if random <= 0.5:
         value="A"
     else:
@@ -126,4 +129,4 @@ def MarkoPolo(trials):
 # Run a simulation of 10 steps and print the output.
 ##Only loops through 9 times because the first step is outside of the
 ##range portion of the loop. The total number of values is still ten. 
-MarkoPolo(9)
+MarkovPolo(9)
