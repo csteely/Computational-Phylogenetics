@@ -115,10 +115,15 @@ def MarkoPolo(trials):
                 value="B"
                 valueList.append(value)
                 
-                
+    m=valueList.count("A")
+    n=valueList.count("B")
+    
+    print("The total number of times state A is in the list is: ", m)
+    print("The total number of times state B is in the list is: ", n)
     print(valueList)
-
+    
 
 # Run a simulation of 10 steps and print the output.
-
-MarkoPolo(10)
+##Only loops through 9 times because the first step is outside of the
+##range portion of the loop. The total number of values is still ten. 
+MarkoPolo(9)
