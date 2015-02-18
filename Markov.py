@@ -81,12 +81,12 @@ print(random)
 # a list. Draw a random state to initiate the chain.
 
 
-def MarkovPolo(trials):
+def MarkovPolo(matrix, trials):
     
 #Get it? Like MarcoPolo, but more random.
     
     import numpy
-    valueList=[]
+    stateList=[]
     random=numpy.random.uniform(0,1)
 ##Decided that the first value should have a 50/50 chance of being A or B. 
 
@@ -94,39 +94,39 @@ def MarkovPolo(trials):
         value="A"
     else:
         value="B"
-    valueList.append(value)
+    stateList.append(value)
     for v in range(trials):
         
         value=value        
         if value=="A":
-            x=numpy.random.uniform(0,1)
-            if x<=.4:
+            x=numpy.random.random()
+            if matrix[0][0]<=x:
                 value="A"
-                valueList.append(value)
+                stateList.append(value)
 
             else:
                 value="B"
-                valueList.append(value)
+                stateList.append(value)
                 
         elif value=="B":
-            x=numpy.random.uniform(0,1)
-            if x<=.5:
+            x=numpy.random.random()
+            if matrix[1][0] >=x:
                 value="A"
-                valueList.append(value)
+                stateList.append(value)
                 
             else:
                 value="B"
-                valueList.append(value)
+                stateList.append(value)
                 
-    m=valueList.count("A")
-    n=valueList.count("B")
+    m=stateList.count("A")
+    n=stateList.count("B")
     
     print("The total number of times state A is in the list is: ", m)
     print("The total number of times state B is in the list is: ", n)
-    print(valueList)
+    print(stateList)
     
 
 # Run a simulation of 10 steps and print the output.
 ##Only loops through 9 times because the first step is outside of the
 ##range portion of the loop. The total number of values is still ten. 
-MarkovPolo(9)
+MarkovPolo(mat,9)
