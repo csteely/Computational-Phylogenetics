@@ -64,7 +64,9 @@ class ContMarkov (object):
         ##Setting up the simulation
     def simulate(self):
         
-        self.firstState=[]
+        self.firstState = []
+        self.times = []
+        self.stateList = []
         
         #Changing the list of freqs to floats
         self.freq=list(map(float, self.freq))
@@ -100,11 +102,13 @@ class ContMarkov (object):
     ##Should continue to loop until the sum of the times is greater than v
     ##, the branch length.
         while sum(self.times) < self.v:
+            
     ##So if the last item in the list is an A, it uses this part of the loop
     ##All of these below work in a similar way as the starting state
     ##They use random.expovariate to determine the waiting time
     ##Then they draw a new state based on the marginal probabilities of each 
     ##of the possible new states.
+    
             if self.stateList[-1]==self.stateSpace[0]:
                 self.waitTime=random.expovariate(-self.QNorm[0][0])
                 self.times.append(self.waitTime)
@@ -117,7 +121,7 @@ class ContMarkov (object):
                     self.stateList.append(self.stateSpace[3])
      ##This is for C                   
                     
-            if self.stateList[-1]==self.stateSpace[1]:
+            elif self.stateList[-1]==self.stateSpace[1]:
                 self.waitTime=random.expovariate(-self.QNorm[1][1])
                 self.times.append(self.waitTime)
                
@@ -130,7 +134,7 @@ class ContMarkov (object):
                    self.stateList.append(self.stateSpace[3])
                    
         ##This is for G
-            if self.stateList[-1]==self.stateSpace[2]:
+            elif self.stateList[-1]==self.stateSpace[2]:
                 self.waitTime=random.expovariate(-self.QNorm[2][2])
                 self.times.append(self.waitTime)
                 x=random.random()
@@ -143,7 +147,7 @@ class ContMarkov (object):
          
         ##This is for T           
                         
-            if self.stateList[-1]==self.stateSpace[3]:
+            elif self.stateList[-1]==self.stateSpace[3]:
                 self.waitTime=random.expovariate(-self.QNorm[3][3])
                 self.times.append(self.waitTime)
                 x=random.random()
@@ -155,5 +159,4 @@ class ContMarkov (object):
                     self.stateList.append(self.stateSpace[2])
                       
                         
-            return self.stateList, self.times
- 
+        return self.stateList, self.times
