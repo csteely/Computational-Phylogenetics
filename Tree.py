@@ -1,6 +1,4 @@
-"""
-@author: Cody
-"""
+
 
 # ---> Defining Node and Tree classes <---
 
@@ -65,7 +63,7 @@ for child in root.children:
 # Let's go ahead and define a Tree object that houses all these nodes and 
 # organizes methods associated with them.
 
-import ctmc
+
 # We'll need this later, I promise. It's always better to put import statements
 # outside of class definitions. In fact, it's best to put them all at the top
 # of a file. This imports the ctmc class that we previously defined.
@@ -116,18 +114,13 @@ class Tree:
         A method of a Tree object that will print out the names of its
         terminal nodes.
         """
-        listofnames=[]
-        if len(Node.children) > 0:
-            
-            for child in Node.children:
                 
-                if len(child.children) > 0:
-                    listofnames.append(child.children)
-                else:
-                    listofnames.append(Node.children)
-            else:
-                continue
-            print(Node.children)
+        if node.children!=[]:
+            for child in node.children:
+                self.printNames(child)
+        
+        else:
+            print(node.name)
             
     # Write a recursive function to calculate the total tree length (the sum of
     # all the branch lengths). Again, the root node of a tree should be the only 
@@ -136,6 +129,19 @@ class Tree:
         """
         A method to calculate and return total tree length.
         """
+        
+        ttbrl=0
+        
+        if node.children!=[]:
+            for child in node.children:
+                ttbrl=ttbrl+self.treeLength(child)
+            return ttbrl
+                
+        else:
+            return ttbrl
+            
+        
+        
  
  
 
@@ -181,4 +187,3 @@ class Tree:
         This method prints out the names of the tips and their associated
         sequences as an alignment (matrix).
         """
-
