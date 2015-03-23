@@ -1,12 +1,14 @@
 
 
+
 # ---> Defining Node and Tree classes <---
 
 class Node:
     
-    def __init__(self,name="",parent=None,children=None):
+    def __init__(self,name="",parent=None,children=None, branchlength=0):
         self.name = name
         self.parent = None
+        self.brl=branchlength
         if children is None:
             self.children = []
         else:
@@ -105,7 +107,8 @@ class Tree:
         self.spC.seq = []
         self.ancAB.seq = []
         self.root.seq = []
-        self.setModels(self.root)
+        #self.setModels(self.root)
+        
 
     # Write a recursive function that takes the root node as its only argument and
     # prints out all the names of the terminal nodes in the tree. Due next Tues (3/17).
@@ -131,14 +134,12 @@ class Tree:
         """
         
         ttbrl=0
-        
-        if node.children!=[]:
+        if node.children != []:
             for child in node.children:
                 ttbrl=ttbrl+self.treeLength(child)
-            return ttbrl
-                
-        else:
-            return ttbrl
+     
+        return node.brl+ttbrl
+
             
         
         
@@ -187,3 +188,5 @@ class Tree:
         This method prints out the names of the tips and their associated
         sequences as an alignment (matrix).
         """
+
+
