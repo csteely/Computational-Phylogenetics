@@ -1,14 +1,14 @@
 
-
-
 # ---> Defining Node and Tree classes <---
+
+import contmarkov
 
 class Node:
     
     def __init__(self,name="",parent=None,children=None, branchlength=0):
         self.name = name
         self.parent = None
-        self.brl=branchlength
+        self.brl=float(branchlength)
         if children is None:
             self.children = []
         else:
@@ -95,11 +95,11 @@ class Tree:
         # Now, let's add branch lengths to our Node objects (remember, these fields
         # can be added arbitrarily in Python). In the future, we should probably include
         # branch lengths in the Node constructor.
-        self.spA.brl = 0.1
-        self.spB.brl = 0.1
-        self.spC.brl = 0.2
-        self.ancAB.brl = 0.1
-        self.root.brl = 0
+        self.spA.brl = float(0.1)
+        self.spB.brl = float(0.1)
+        self.spC.brl = float(0.2)
+        self.ancAB.brl = float(0.1)
+        self.root.brl = float(0)
         # We're also going to add lists to each node that will hold simulated
         # sequences.
         self.spA.seq = []
@@ -133,12 +133,15 @@ class Tree:
         A method to calculate and return total tree length.
         """
         
-        ttbrl=0
+        ttbrl=[]
         if node.children != []:
             for child in node.children:
-                ttbrl=ttbrl+self.treeLength(child)
-     
-        return node.brl+ttbrl
+                ttbrl.append(self.treeLength(child))
+                ttbrl.append(node.brl)
+            print(ttbrl)
+        else:
+            ttbrl.append(node.brl)
+            return ttbrl
 
             
         
@@ -156,6 +159,27 @@ class Tree:
         """
 
 
+#every string has to start off with this. 
+        newicks="("
+        
+#If the list of children is not empty, go through each child in the list        
+        if node.children!=[]:
+            for child in node.children:
+#based this part off of what Andre had done, definitely clearer than what I had in mind
+                if node.children[-1]==child:
+                    newicks=newicks+self.newick(child)
+                else:
+                    newicks=newicks+self.newick(child) + ","
+#If the branch length isn't 0, add the branch length after ":"
+#close everything with ")"                    
+            if node.brl !=0:
+                newicks=newicks+ "):" +str(node.brl)
+            else:
+                newicks=newicks+ ")"
+            return newicks 
+        else:
+            return node.name + ":" + str(node.brl)
+            
 
 
     # Now, let's write a recursive function to simulate sequence evolution along a
@@ -175,6 +199,8 @@ class Tree:
         This method of a Tree object defines a ctmc object associated with all
         nodes that have a branch length (i.e., all but the root).
         """
+        
+
 
 
     def simulate(self,node):
@@ -182,11 +208,34 @@ class Tree:
         This method simulates evolution along the branches of a tree, taking
         the root node as its initial argument.
         """
+    ##not quite working yet. 
+    
+        branch=[]
+        states=[]
+        
+        for child in node.children:
+            
+            if node.parent==None:
+                x=contmarkov.ContMarkov(v=node.brl).simulate()
+                branch.append(child.name)
+                states.append(x)
+                
+            elif node.parent!=root:
+                y=contmarkov.ContMarkov(v=node.brl).simulate()
+                branch.append(child.name)
+                states.append(y)
+                
+                
+                
+        return branch, states
+        
+        
+                
+             
              
     def printSeqs(self,node):
         """
         This method prints out the names of the tips and their associated
         sequences as an alignment (matrix).
         """
-
 
