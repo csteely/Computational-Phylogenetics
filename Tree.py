@@ -1,14 +1,20 @@
 
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 29 17:24:31 2015
+
+@author: Cody
+"""
+
 # ---> Defining Node and Tree classes <---
 
 import contmarkov
 
 class Node:
     
-    def __init__(self,name="",parent=None,children=None, branchlength=0):
+    def __init__(self,name="",parent=None,children=None):
         self.name = name
         self.parent = None
-        self.brl=float(branchlength)
         if children is None:
             self.children = []
         else:
@@ -95,11 +101,11 @@ class Tree:
         # Now, let's add branch lengths to our Node objects (remember, these fields
         # can be added arbitrarily in Python). In the future, we should probably include
         # branch lengths in the Node constructor.
-        self.spA.brl = float(0.1)
-        self.spB.brl = float(0.1)
-        self.spC.brl = float(0.2)
-        self.ancAB.brl = float(0.1)
-        self.root.brl = float(0)
+        self.spA.brl = 0.1
+        self.spB.brl = 0.1
+        self.spC.brl = 0.2
+        self.ancAB.brl = 0.1
+        self.root.brl = 0
         # We're also going to add lists to each node that will hold simulated
         # sequences.
         self.spA.seq = []
@@ -117,11 +123,11 @@ class Tree:
         A method of a Tree object that will print out the names of its
         terminal nodes.
         """
-                
+        #if the list of children isn't empty, loop through each child in the list and print the names
         if node.children!=[]:
             for child in node.children:
                 self.printNames(child)
-        
+       #if the list is empty, print the name of the node 
         else:
             print(node.name)
             
@@ -132,22 +138,15 @@ class Tree:
         """
         A method to calculate and return total tree length.
         """
-        
-        ttbrl=[]
+        #set a holder to 0, loop through each child if the list of children isn't empty
+        self.ttbrl=0
         if node.children != []:
             for child in node.children:
-                ttbrl.append(self.treeLength(child))
-                ttbrl.append(node.brl)
-            print(ttbrl)
+                self.ttbrl=self.ttbrl+node.brl
         else:
-            ttbrl.append(node.brl)
-            return ttbrl
+            self.ttbrl=self.ttbrl+node.brl
+            return self.ttbrl
 
-            
-        
-        
- 
- 
 
     # Write a recursive function that takes the root node as one of its arguments
     # and prints out a parenthetical (Newick) tree string. Due next Tues (3/17).
@@ -193,7 +192,8 @@ class Tree:
     # constructor, if we know that we'll be simulating data.
     
     # Try to get this simulator and associated functions working by next Thurs. (3/19)    
-    
+    #I had talked to you about this part in class, I'm thinking the simulator and everything
+    #needed should be covered in other areas of the program, so I left this blank. 
     def setModels(self,node):
         """
         This method of a Tree object defines a ctmc object associated with all
@@ -208,13 +208,13 @@ class Tree:
         This method simulates evolution along the branches of a tree, taking
         the root node as its initial argument.
         """
-    ##not quite working yet. 
-    
+        #lists for the branches and the states
         branch=[]
         states=[]
         
+        #looping through each child in the list
         for child in node.children:
-            
+        #simulation steps, x and y defined in the simulator
             if node.parent==None:
                 x=contmarkov.ContMarkov(v=node.brl).simulate()
                 branch.append(child.name)
@@ -238,4 +238,13 @@ class Tree:
         This method prints out the names of the tips and their associated
         sequences as an alignment (matrix).
         """
-
+        #setting the blank matrix list
+        self.mat=[]
+        if node.children != []:
+            for child in node.children:
+                print(node.name)
+                print(node.states)
+            else:
+                self.mat.append(node.name)
+                self.mat.append(node.states)
+            return self.mat
